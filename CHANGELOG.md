@@ -4,7 +4,7 @@ This changelog follows the patterns described here: https://keepachangelog.com/e
 
 ## Unreleased
 ### fixed
-- Fixed infinite rebuild loop started by `watch` command by path canonicalizing in the ignored paths resolver.
+- Fixed infinite rebuild loop started by `watch` command by path canonicalizing the paths resolver.
 
 ## 0.7.4
 ### fixed
