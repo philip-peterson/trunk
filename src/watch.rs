@@ -80,6 +80,22 @@ impl WatchSystem {
     }
 
     async fn handle_watch_event(&mut self, event: DebouncedEvent) {
+        match &event {
+            DebouncedEvent::Create(path) => {
+                println!("Watch event: Create {}", path.to_string_lossy());
+            },
+            DebouncedEvent::Write(path) => {
+                println!("Watch event: Write {}", path.to_string_lossy());
+            },
+            DebouncedEvent::Remove(path) => {
+                println!("Watch event: Remove {}", path.to_string_lossy());
+            },
+            DebouncedEvent::Rename(path1, path2) => {
+                println!("Watch event: Rename {} -> {}", path1.to_string_lossy(), path2.to_string_lossy());
+            },
+            _ => return
+        };
+
         let ev_path = match event {
             DebouncedEvent::Create(path) | DebouncedEvent::Write(path) | DebouncedEvent::Remove(path) | DebouncedEvent::Rename(_, path) => path,
             _ => return,
