@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
 use anyhow::{anyhow, Context, Result};
@@ -102,7 +102,9 @@ impl WatchSystem {
     }
 
     fn update_ignore_list(&mut self, path: PathBuf) {
-        let canon_path = path.canonicalize().expect(format!("Could not canonicalize path: {}", path));
+        let canon_path = path.canonicalize().expect(
+            format!("Could not canonicalize path: {}", path.to_string_lossy()).as_ref()
+        );
         if !self.ignores.contains(&canon_path) {
             self.ignores.push(canon_path);
         }
